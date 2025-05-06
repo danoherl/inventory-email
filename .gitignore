@@ -1,0 +1,7 @@
+.DS_Store
+.env
+.gitignore.swp
+gcp_key.b64
+gcp_key.json
+token.b64
+token.pickle
