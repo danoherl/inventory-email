@@ -4,7 +4,7 @@ run-name: Inventory email for this week.
 
 on: 
   schedule:
-    - cron: "46 22 * * 3"
+    - cron: "47 21 * * 3"
 
 jobs: 
   send_email:
