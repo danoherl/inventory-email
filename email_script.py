@@ -3,11 +3,9 @@
 
 import gspread
 from google.oauth2 import service_account
-
-from google.auth.transport.requests import Request
 import os
+import base64
 from dotenv import load_dotenv
-import pickle
 import smtplib
 from email.mime.text import MIMEText
 from datetime import datetime
@@ -21,7 +19,7 @@ def get_gspread_client():
     """
     Authenticate using a service account. 
     """
-    service_account_path = os.getenv('gcpkey_path')
+    service_account_path = base64.b64decode(os.getenv('GCP_KEY_B64'))
     creds = service_account.Credentials.from_service_account_file(service_account_path, scopes=SCOPES)
     return gspread.authorize(creds)
 
@@ -40,8 +38,8 @@ def get_links_from_sheet(sheet_name):
 
 # Email the links
 def send_email(items_to_order, recipient):
-    sender = os.getenv('sender')
-    password = os.getenv('app_password') # Use an app password if using Gmail 2FA
+    sender = os.getenv('SENDER')
+    password = os.getenv('APP_PASSWORD') # Use an app password if using Gmail 2FA
 
     subject = f"Weekly Inventory Order List - {datetime.now().strftime('%Y-%m-%d')}"
     body = "Here are the links to buy the items needed:\n\n" + "\n".join(items_to_order)
@@ -56,9 +54,9 @@ def send_email(items_to_order, recipient):
         server.send_message(msg)
 
 def main():
-    items_to_order = get_links_from_sheet(os.getenv('sheet_name'))
+    items_to_order = get_links_from_sheet(os.getenv('SHEET_NAME'))
     if items_to_order:
-        send_email(items_to_order, os.getenv('recipient'))
+        send_email(items_to_order, os.getenv('RECIPIENT'))
     else:
         print("No items to order this week.")
 
