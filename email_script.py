@@ -20,6 +20,7 @@ def get_gspread_client():
     Authenticate using a service account. 
     """
     service_account_key = base64.b64decode(os.getenv('GCP_KEY_B64'))
+    service_account_key = json.loads(service_account_key)
     creds = service_account.Credentials.from_service_account_info(service_account_key, scopes=SCOPES)
     return gspread.authorize(creds)
 
