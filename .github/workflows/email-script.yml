@@ -3,11 +3,8 @@ name: run email-script.py
 run-name: Inventory email for this week.
 
 on: 
-  workflow_dispatch
-  # schedule:
-  #   #- cron: "0 18 * * 4"
-  #   - cron: "*/2 * * * *"
-  #   #- cron: "0 12 * * 4"
+   schedule:
+     - cron: "0 18 * * 4"
 
 jobs: 
   send_email:
