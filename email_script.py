@@ -5,6 +5,7 @@ import gspread
 from google.oauth2 import service_account
 import os
 import base64
+import json
 from dotenv import load_dotenv
 import smtplib
 from email.mime.text import MIMEText
