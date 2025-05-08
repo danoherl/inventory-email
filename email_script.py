@@ -12,6 +12,8 @@ from email.mime.text import MIMEText
 from datetime import datetime
 load_dotenv()
 
+from google.auth.identity_pool import Credentials
+
 
 # Define the scope for Sheets + Drive
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly','https://www.googleapis.com/auth/drive.readonly']
@@ -20,9 +22,13 @@ def get_gspread_client():
     """
     Authenticate using a service account. 
     """
-    service_account_key = base64.b64decode(os.getenv('GCP_KEY_B64'))
-    service_account_key = json.loads(service_account_key)
-    creds = service_account.Credentials.from_service_account_info(service_account_key, scopes=SCOPES)
+    f = open(os.environ["GOOGLE_APPLICATION_CREDENTIALS"])
+    key = json.load(f)
+
+    creds = Credentials.from_info(key)
+    # service_account_key = base64.b64decode(os.getenv('GCP_KEY_B64'))
+    # service_account_key = json.loads(service_account_key)
+    # creds = service_account.Credentials.from_service_account_info(service_account_key, scopes=SCOPES)
     return gspread.authorize(creds)
 
 # Get item links from the sheet
