@@ -2,7 +2,6 @@
 
 
 import gspread
-from google.oauth2
 from dotenv import load_dotenv
 import smtplib
 from email.mime.text import MIMEText
