@@ -1,4 +1,3 @@
 google-auth
 gspread
 python-dotenv
-json
