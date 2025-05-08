@@ -1,6 +1,6 @@
 #!/opt/anaconda3/bin/python
 
-
+import os
 import gspread
 from dotenv import load_dotenv
 import smtplib
