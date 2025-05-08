@@ -37,4 +37,4 @@ jobs:
 
 
 
-        run: python my_script.py
+        run: python email_script.py
