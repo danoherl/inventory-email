@@ -20,7 +20,7 @@ def get_gspread_client():
     Authenticate using a service account. 
     """
     service_account_path = base64.b64decode(os.getenv('GCP_KEY_B64'))
-    creds = service_account.Credentials.from_service_account_file(service_account_path, scopes=SCOPES)
+    creds = service_account.Credentials.from_service_account_info(service_account_path, scopes=SCOPES)
     return gspread.authorize(creds)
 
 # Get item links from the sheet
