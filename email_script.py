@@ -2,10 +2,7 @@
 
 
 import gspread
-from google.oauth2 import service_account
-import os
-import base64
-import json
+from google.oauth2
 from dotenv import load_dotenv
 import smtplib
 from email.mime.text import MIMEText
@@ -14,7 +11,6 @@ load_dotenv()
 
 import google.auth
 from google.auth.transport.requests import Request
-#from google.auth.identity_pool import Credentials
 
 
 # Define the scope for Sheets + Drive
@@ -27,13 +23,6 @@ def get_gspread_client():
 
     creds, _ = google.auth.default(scopes=SCOPES)
 
-    # f = open(os.environ["GOOGLE_APPLICATION_CREDENTIALS"])
-    # key = json.load(f)
-
-    # creds = Credentials.from_info(key)
-    # service_account_key = base64.b64decode(os.getenv('GCP_KEY_B64'))
-    # service_account_key = json.loads(service_account_key)
-    # creds = service_account.Credentials.from_service_account_info(service_account_key, scopes=SCOPES)
     return gspread.authorize(creds)
 
 # Get item links from the sheet
