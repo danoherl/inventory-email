@@ -5,3 +5,4 @@ gcp_key.b64
 gcp_key.json
 token.b64
 token.pickle
+local_email_script.py
