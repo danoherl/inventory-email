@@ -29,13 +29,18 @@ def get_links_from_sheet(sheet_name):
     client = get_gspread_client()
     sheet = client.open(sheet_name).sheet1
     items_to_order = []
-    names, links, quantities = sheet.col_values(2), sheet.col_values(4), sheet.col_values(5)
+    wholesale_list = []
+
+    names, sellers, links, quantities = sheet.col_values(2), sheet.col_values(3), sheet.col_values(4), sheet.col_values(5)
     for i in range(1, len(quantities)):
         if quantities[i].strip().isdigit() and int(quantities[i]) > 0:
-            items_to_order.append(quantities[i] + " of " + names[i]
-                                   + ", link: " + links[i])
+            if sellers[i] == "WHOLESALE":
+                wholesale_list.append(quantities[i] + " of " + names[i])
+            else:
+                items_to_order.append(quantities[i] + " of " + names[i]
+                                    + ", link: " + links[i])
             
-    return items_to_order
+    return items_to_order, wholesale_list
 
 # Email the links
 def send_email(items_to_order, recipient):
@@ -43,7 +48,12 @@ def send_email(items_to_order, recipient):
     password = os.getenv('APP_PASSWORD') # Use an app password if using Gmail 2FA
 
     subject = f"Weekly Inventory Order List - {datetime.now().strftime('%Y-%m-%d')}"
-    body = "Here are the links to buy the items needed:\n\n" + "\n".join(items_to_order)
+    body = (
+        "Here are the links to buy the items needed:\n\n"
+        + "\n".join(items_to_order)
+        + "\n\nAnd here is a shopping list for the wholesaler:\n\n"
+        + "\n".join(wholesale_list)
+    )
 
     msg = MIMEText(body)
     msg['Subject'] = subject
@@ -55,9 +65,9 @@ def send_email(items_to_order, recipient):
         server.send_message(msg)
 
 def main():
-    items_to_order = get_links_from_sheet(os.getenv('SHEET_NAME'))
-    if items_to_order:
-        send_email(items_to_order, os.getenv('RECIPIENT'))
+    items_to_order, wholesale_list = get_links_from_sheet(os.getenv('SHEET_NAME'))
+    if items_to_order or wholesale_list:
+        send_email(items_to_order, wholesale_lis, os.getenv('RECIPIENT'))
     else:
         print("No items to order this week.")
 
