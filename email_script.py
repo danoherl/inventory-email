@@ -31,7 +31,12 @@ def get_links_from_sheet(sheet_name):
     items_to_order = []
     wholesale_list = []
 
-    names, sellers, links, quantities = sheet.col_values(2), sheet.col_values(3), sheet.col_values(4), sheet.col_values(5)
+    names, sellers, links, quantities = (
+    sheet.col_values(2),
+    sheet.col_values(3),
+    sheet.col_values(4),
+    sheet.col_values(5)
+)
     for i in range(1, len(quantities)):
         if quantities[i].strip().isdigit() and int(quantities[i]) > 0:
             if sellers[i] == "WHOLESALE":
