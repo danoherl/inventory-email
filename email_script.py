@@ -67,7 +67,7 @@ def send_email(items_to_order, recipient):
 def main():
     items_to_order, wholesale_list = get_links_from_sheet(os.getenv('SHEET_NAME'))
     if items_to_order or wholesale_list:
-        send_email(items_to_order, wholesale_lis, os.getenv('RECIPIENT'))
+        send_email(items_to_order, wholesale_list, os.getenv('RECIPIENT'))
     else:
         print("No items to order this week.")
 
