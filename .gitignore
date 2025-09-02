@@ -6,3 +6,6 @@ gcp_key.json
 token.b64
 token.pickle
 local_email_script.py
+gcp_key_old.json
+gcp_key_old.b64
+local_email_script_copy.py
