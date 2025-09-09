@@ -48,7 +48,7 @@ def get_links_from_sheet(sheet_name):
     return items_to_order, wholesale_list
 
 # Email the links
-def send_email(items_to_order, recipient):
+def send_email(items_to_order, wholesale_list, recipient):
     sender = os.getenv('SENDER')
     password = os.getenv('APP_PASSWORD') # Use an app password if using Gmail 2FA
 
