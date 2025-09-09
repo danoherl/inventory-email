@@ -1,7 +1,4 @@
 .DS_Store
 .env
 .gitignore.swp
-gcp_key.json
-token.b64
-token.pickle
 local_email_script.py
