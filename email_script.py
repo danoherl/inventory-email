@@ -12,20 +12,17 @@ import google.auth
 from google.auth.transport.requests import Request
 
 
-# Define the scope for Sheets + Drive
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly','https://www.googleapis.com/auth/drive.readonly']
 
 def get_gspread_client():
-    """
-    Authenticate using a service account. 
-    """
+    """ Authenticate using a service account. """
 
     creds, _ = google.auth.default(scopes=SCOPES)
 
     return gspread.authorize(creds)
 
-# Get item links from the sheet
 def get_links_from_sheet(sheet_name):
+    """Retrieve two lists of stock from the inventory spreadsheet."""
     client = get_gspread_client()
     sheet = client.open(sheet_name).sheet1
     items_to_order = []
@@ -47,10 +44,10 @@ def get_links_from_sheet(sheet_name):
             
     return items_to_order, wholesale_list
 
-# Email the links
 def send_email(items_to_order, wholesale_list, recipient):
+    """Send the stock list by email."""
     sender = os.getenv('SENDER')
-    password = os.getenv('APP_PASSWORD') # Use an app password if using Gmail 2FA
+    password = os.getenv('APP_PASSWORD') 
 
     subject = f"Weekly Inventory Order List - {datetime.now().strftime('%Y-%m-%d')}"
     body = (
