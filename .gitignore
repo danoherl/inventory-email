@@ -2,3 +2,4 @@
 .env
 .gitignore.swp
 local_email_script.py
+gcp_key.json
