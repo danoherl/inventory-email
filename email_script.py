@@ -55,6 +55,9 @@ def send_email(items_to_order, wholesale_list, recipient):
         + "\n".join(items_to_order)
         + "\n\nAnd here is a shopping list for the wholesaler:\n\n"
         + "\n".join(wholesale_list)
+        + "\n\nPlease update values once ordered in the spreadsheet:\n" 
+        + os.getenv('SHEET_URL')
+
     )
 
     msg = MIMEText(body)
