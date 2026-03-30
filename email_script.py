@@ -11,7 +11,6 @@ load_dotenv()
 import google.auth
 from google.auth.transport.requests import Request
 
-
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly','https://www.googleapis.com/auth/drive.readonly']
 
 def get_gspread_client():
